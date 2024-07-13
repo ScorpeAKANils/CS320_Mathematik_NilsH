@@ -10,7 +10,7 @@ public enum Aufgaben
     zweiC,
 }
 
-public class Aufgabe1 : MonoBehaviour
+public class MathePruefung : MonoBehaviour
 {
     public float frequenz;
     public float WaveHeight;
