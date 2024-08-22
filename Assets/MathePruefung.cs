@@ -53,70 +53,70 @@ public class MathePruefung : MonoBehaviour
 
     public void AufgabeEinsA()
     {
-        float newYPos = Mathf.Sin((transform.position.x + Time.time * speed) * frequenz) * WaveHeight;
-        transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
+        float xPos = transform.position.x + speed * Time.deltaTime;
+        float newYPos = Mathf.Sin((xPos + Time.time) * frequenz) * WaveHeight;
+        transform.position = new Vector3(xPos, newYPos, transform.position.z);
     }
 
     public void AufgabeEinsB()
     {
-        float newYPos = Mathf.Sin((transform.position.x + Time.time * speed) * frequenz) * WaveHeight;
-        float yAbleitung = Mathf.Cos((transform.position.x + Time.time * speed) * frequenz) * frequenz * WaveHeight;
-        float newY = newYPos - (yAbleitung * slopeSpeedFactor * Time.deltaTime);
-        transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, newY, transform.position.z);
+        float xPos = transform.position.x + speed * Time.deltaTime;
+        float yPos = Mathf.Sin((xPos + Time.time) * frequenz) * WaveHeight;
+        float yAbleitung = Mathf.Cos((xPos + Time.time) * frequenz) * frequenz * WaveHeight;
+        float newY = yPos - (yAbleitung * slopeSpeedFactor * Time.deltaTime);
+        transform.position = new Vector3(xPos, newY, transform.position.z);
     }
 
     public void AufgabeEinsC()
     {
-        float xPos = transform.position.x;
+        float xPos = transform.position.x + speed * Time.deltaTime;
         float zPos = transform.position.z;
-        float yPos = Mathf.Sin((xPos + Time.time * speed) * frequenz) * WaveHeight;
+        float yPos = Mathf.Sin((xPos + Time.time) * frequenz) * WaveHeight;
         float yAbleitung = Mathf.Cos((xPos + Time.time * speed) * frequenz) * frequenz * WaveHeight;
 
-        // Korrekte Berechnung der Neigung
-        float newRotationZ = Mathf.Atan2(yAbleitung, 1) * Mathf.Rad2Deg; // Neigung entlang der X-Achse
+        float newRotationZ = Mathf.Atan2(yAbleitung, 1) * Mathf.Rad2Deg;
         float newY = yPos - (yAbleitung * slopeSpeedFactor * Time.deltaTime);
 
-        Vector3 lastPos = transform.position; 
-        transform.position = new Vector3(xPos + speed * Time.deltaTime, newY, zPos);
+        Vector3 lastPos = transform.position;
+        transform.position = new Vector3(xPos, newY, zPos);
         Vector3 dir = transform.position - lastPos;
         transform.rotation = Quaternion.LookRotation(dir.normalized, Vector3.down);
     }
 
     public void AufgabeZweiA()
     {
-        float newYPos = Mathf.Cos(transform.position.x + Time.time * speed) * (0.25f * transform.position.x) + Mathf.Sin(transform.position.z + Time.time * speed) * WaveHeight;
-        transform.position = new Vector3(transform.position.x, newYPos, transform.position.z + speed * Time.deltaTime);
+        float xPos = transform.position.x;
+        float zPos = transform.position.z + speed * Time.deltaTime;
+        float newYPos = Mathf.Cos(xPos + Time.time) * (0.25f * xPos) + Mathf.Sin(zPos + Time.time) * WaveHeight;
+        transform.position = new Vector3(xPos, newYPos, zPos);
     }
 
     public void AufgabeZweiB()
     {
-        float xPos = transform.position.x;
-        float zPos = transform.position.z;
-        float yPos = Mathf.Cos(xPos + Time.time * speed) * (0.25f * xPos) + Mathf.Sin(zPos + Time.time * speed) * WaveHeight;
-        float yAbleitungX = -Mathf.Sin(xPos + Time.time * speed) * (0.25f * xPos) * WaveHeight;
-        float yAbleitungZ = Mathf.Cos(zPos + Time.time * speed) * WaveHeight;
+        float xPos = transform.position.x + speed * Time.deltaTime;
+        float zPos = transform.position.z + speed * Time.deltaTime;
+        float yPos = Mathf.Cos(xPos + Time.time) * (0.25f * xPos) + Mathf.Sin(zPos + Time.time) * WaveHeight;
+        float yAbleitungX = -Mathf.Sin(xPos + Time.time) * (0.25f * xPos) * WaveHeight;
+        float yAbleitungZ = Mathf.Cos(zPos + Time.time) * WaveHeight;
         float newY = yPos - (yAbleitungX * slopeSpeedFactor * Time.deltaTime) - (yAbleitungZ * slopeSpeedFactor * Time.deltaTime);
-        transform.position = new Vector3(xPos + speed * Time.deltaTime, newY, zPos + speed * Time.deltaTime);
+        transform.position = new Vector3(xPos, newY, zPos);
     }
 
     public void AufgabeZweiC()
     {
-        float xPos = transform.position.x;
-        float zPos = transform.position.z;
-        float yPos = Mathf.Cos(xPos + Time.time * speed) * (0.25f * xPos) + Mathf.Sin(zPos + Time.time * speed) * WaveHeight;
-        float yAbleitungX = -Mathf.Sin(xPos + Time.time * speed) * (0.25f * xPos) * WaveHeight;
-        float yAbleitungZ = Mathf.Cos(zPos + Time.time * speed) * WaveHeight;
+        float xPos = transform.position.x + speed * Time.deltaTime;
+        float zPos = transform.position.z + speed * Time.deltaTime;
+        float yPos = Mathf.Cos(xPos + Time.time) * (0.25f * xPos) + Mathf.Sin(zPos + Time.time) * WaveHeight;
+        float yAbleitungX = -Mathf.Sin(xPos + Time.time) * (0.25f * xPos) * WaveHeight;
+        float yAbleitungZ = Mathf.Cos(zPos + Time.time) * WaveHeight;
 
-        // Korrekte Berechnung der Neigungen in beiden Achsen
-        float newRotationX = Mathf.Atan2(yAbleitungZ, 1) * Mathf.Rad2Deg; // Neigung entlang der Z-Achse
-        float newRotationZ = Mathf.Atan2(yAbleitungX, 1) * Mathf.Rad2Deg; // Neigung entlang der X-Achse
+        float newRotationX = Mathf.Atan2(yAbleitungZ, 1) * Mathf.Rad2Deg;
+        float newRotationZ = Mathf.Atan2(yAbleitungX, 1) * Mathf.Rad2Deg;
         float newY = yPos - (yAbleitungX * slopeSpeedFactor * Time.deltaTime) - (yAbleitungZ * slopeSpeedFactor * Time.deltaTime);
 
-        //transform.rotation = Quaternion.Euler(newRotationX, 0, newRotationZ);
-        Vector3 lastPos = transform.position; 
-        transform.position = new Vector3(xPos + speed * Time.deltaTime, newY, zPos + speed * Time.deltaTime);
+        Vector3 lastPos = transform.position;
+        transform.position = new Vector3(xPos, newY, zPos);
         Vector3 dir = transform.position - lastPos;
         transform.rotation = Quaternion.LookRotation(dir.normalized, Vector3.down);
     }
 }
-
